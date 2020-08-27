@@ -2,29 +2,35 @@ import React from 'react';
 import Fakedata from '../../../Fakedata/data'
 import {useState} from 'react';
 import './Courses.css';
-import Enrol from '../Enrol/Enrol';
+import Product from '../Enrol/Product';
+import Cart from '../Cart/Cart';
+
 
 
 const Courses = () => {
     
     const data = Fakedata;
-    const [enrol, setEnrol] = useState(data);
-    console.log(data);
+    const [product, setproduct] = useState(data);
+    const [cart, setCart] = useState([]);
+
+    const handleAddProduct = (product) => {
+        // console.log('object',product);
+        const newCart = [...cart, product];
+        setCart(newCart);
+    }
 
     return (
         <div className= "allcourses-container">
             <div className="course-container">
                 {
-                    enrol.map(enr => <Enrol enrol={enr}></Enrol>)
-            
+                   product.map(product => <Product
+                    handleAddProduct = {handleAddProduct}
+                    product={product}></Product>)
                 }
             </div> 
-
-            <div className="cart-container">
-                <h3>This is cart</h3>
-            </div>
+            <Cart cart={cart}></Cart>
         
-        </div>
+    </div>
     );
 };
 
